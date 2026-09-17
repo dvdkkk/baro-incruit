@@ -2707,7 +2707,7 @@
         <button type="button" class="modal-close" onclick="closeConsultModal()">✕</button>
       </div>
       <div class="modal-body">
-        <form id="consultForm" onsubmit="handleConsultSubmit(event)">
+        <form id="consultForm" action="https://inputhaven.com/api/v1/submit" method="POST" target="hidden_submit_iframe" onsubmit="return handleConsultSubmit(event)">
           <input type="hidden" name="_form_id" value="914168973e93bda60f4eac1e7cbe1449" />
           
           <div class="form-group">
@@ -2761,6 +2761,7 @@
 
           <button type="submit" class="form-submit-btn">상담 신청 완료하기</button>
         </form>
+        <iframe name="hidden_submit_iframe" id="hidden_submit_iframe" style="display:none; width:0; height:0; border:0;" title="hidden_submit_frame"></iframe>
 
         <div class="form-success-msg" id="consultSuccess">
           <div class="check-circle">✓</div>
@@ -2859,42 +2860,63 @@
     }
 
     function handleConsultSubmit(e) {
-      e.preventDefault();
-      const form = e.target;
+      const form = document.getElementById('consultForm');
       
       const privacyCb = document.getElementById('privacyAgree');
       if (privacyCb && !privacyCb.checked) {
+        if (e && e.preventDefault) e.preventDefault();
         alert('개인정보 제3자 제공 동의는 필수입니다.');
-        return;
+        return false;
       }
 
-      const nameVal = form.querySelector('input[name="name"]').value;
-      const phoneVal = form.querySelector('input[name="phone"]').value;
-      const targetVal = form.querySelector('input[name="target_job"]').value || '미입력';
-      const userMsgVal = form.querySelector('textarea[name="message"]').value || '없음';
+      const formId = form.querySelector('input[name="_form_id"]')?.value || '914168973e93bda60f4eac1e7cbe1449';
+      const nameVal = form.querySelector('input[name="name"]')?.value || '';
+      const phoneVal = form.querySelector('input[name="phone"]')?.value || '';
+      const targetVal = form.querySelector('input[name="target_job"]')?.value || '미입력';
+      const userMsgVal = form.querySelector('textarea[name="message"]')?.value || '없음';
+      const courseVal = form.querySelector('input[name="course"]')?.value || '바로코칭*인크루트 과정';
 
-      const combinedMessage = `[과정명] 바로코칭*인크루트 과정\n[이름] ${nameVal}\n[연락처] ${phoneVal}\n[지원희망 기업/직무] ${targetVal}\n[문의내용] ${userMsgVal}`;
+      const combinedMessage = `[과정명] ${courseVal}\n[이름] ${nameVal}\n[연락처] ${phoneVal}\n[지원희망 기업/직무] ${targetVal}\n[문의내용] ${userMsgVal}`;
 
-      const payload = new URLSearchParams();
-      payload.append('_form_id', '4b48ff0860870d737ff49af3d635afaf');
-      payload.append('name', nameVal);
-      payload.append('message', combinedMessage);
+      // Update textarea with complete structured message so InputHaven receives all data in the message field
+      const messageTextarea = form.querySelector('textarea[name="message"]');
+      if (messageTextarea) {
+        messageTextarea.value = combinedMessage;
+      }
 
-      // Optimistic UI: instantly show success message in 0.1s
-      document.getElementById('consultForm').style.display = 'none';
-      document.getElementById('consultSuccess').style.display = 'block';
+      // Also trigger fetch as a parallel guarantee
+      try {
+        const payload = new URLSearchParams();
+        payload.append('_form_id', formId);
+        payload.append('name', nameVal);
+        payload.append('message', combinedMessage);
+        payload.append('phone', phoneVal);
+        payload.append('course', courseVal);
+        payload.append('target_job', targetVal);
 
-      // Background submission with keepalive: true
-      fetch('https://inputhaven.com/api/v1/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: payload.toString(),
-        keepalive: true
-      }).catch(err => {
-        console.log('Background submission error (handled gracefully):', err);
-      });
+        fetch('https://inputhaven.com/api/v1/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: payload.toString(),
+          mode: 'no-cors',
+          keepalive: true
+        }).catch(err => {
+          console.log('Background submission error (handled gracefully):', err);
+        });
+      } catch (err) {
+        console.log('Fetch error:', err);
+      }
+
+      // Optimistic UI: display success message instantly
+      setTimeout(function() {
+        document.getElementById('consultForm').style.display = 'none';
+        document.getElementById('consultSuccess').style.display = 'block';
+      }, 50);
+
+      // Return true to allow native form POST to hidden_submit_iframe
+      return true;
     }
 
     // Job Selection Sync
