@@ -1644,12 +1644,15 @@
     .modal-dialog {
       background: #ffffff;
       width: 100%;
-      max-width: 500px;
-      border-radius: 20px;
+      max-width: 440px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
       transform: scale(0.95);
       transition: transform 0.3s ease;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
     }
 
     .modal-overlay.active .modal-dialog {
@@ -1657,7 +1660,7 @@
     }
 
     .modal-header {
-      padding: 24px 28px;
+      padding: 18px 22px;
       background: #f8fafc;
       border-bottom: 1px solid #e2e8f0;
       display: flex;
@@ -1666,57 +1669,64 @@
     }
 
     .modal-title {
-      font-size: 18px;
-      font-weight: 800;
-      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: -0.02em;
     }
 
     .modal-close {
-      font-size: 22px;
+      font-size: 20px;
       color: #94a3b8;
       cursor: pointer;
     }
 
     .modal-body {
-      padding: 28px;
+      padding: 20px 22px;
+      overflow-y: auto;
+      max-height: calc(90vh - 65px);
     }
 
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     .form-label {
       display: block;
-      font-size: 13px;
-      font-weight: 700;
-      color: #334155;
-      margin-bottom: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 5px;
+      letter-spacing: -0.01em;
     }
 
-    .form-input, .form-select {
+    .form-input, .form-select, textarea.form-input {
       width: 100%;
-      padding: 12px 14px;
+      padding: 10px 12px;
       border: 1px solid #cbd5e1;
       border-radius: 8px;
-      font-size: 14px;
+      font-size: 13.5px;
+      font-family: inherit;
+      color: #1e293b;
       outline: none;
-      transition: border-color 0.2s;
+      transition: all 0.2s;
+      background: #fff;
     }
 
     .form-input:focus, .form-select:focus {
       border-color: var(--primary-blue);
-      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.12);
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
     }
 
     .form-submit-btn {
       width: 100%;
       background: var(--primary-blue);
       color: #ffffff;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
-      padding: 14px 0;
+      padding: 12px 0;
       border-radius: 8px;
-      margin-top: 10px;
+      margin-top: 6px;
       transition: background 0.2s;
     }
 
@@ -1861,8 +1871,11 @@
 
     @media (max-width: 768px) {
 	 section{font-size:0.8em}
-      .gnb-menu, .auth-links, .header-cta-btn { display: none; }
-      .mobile-menu-btn { display: block; }
+      .gnb-menu, .auth-links { display: none; }
+      .brand-logo .incruit img, .brand-logo .baro img { max-width: 62px; }
+      .header-cta-btn { display: inline-block; font-size: 13px; padding: 8px 14px; font-weight: 700; }
+      .header-actions { gap: 8px; }
+      .mobile-menu-btn { display: block; padding: 4px; font-size: 20px; }
       .hero-section { padding: 50px 0 70px; min-height: auto; }
 
       .hero-spec-grid { flex-direction: column; gap: 10px; width: 100%; }
@@ -2541,33 +2554,11 @@
             <input type="text" name="course" class="form-input" value="바로코칭*인크루트 과정" readonly style="background: #f1f5f9; color: #1e293b; font-weight: 700;" />
           </div>
 
-          <div class="form-group">
-            <label class="form-label">희망전형 (필수 - 다중 선택)</label>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; padding: 12px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px;">
-              <label style="display: flex; align-items: center; gap: 6px; font-size: 13.5px; cursor: pointer; color: #334155;">
-                <input type="checkbox" name="tracks" value="진로컨설팅" style="width: 16px; height: 16px; accent-color: var(--primary-blue);"> 진로컨설팅
-              </label>
-              <label style="display: flex; align-items: center; gap: 6px; font-size: 13.5px; cursor: pointer; color: #334155;">
-                <input type="checkbox" name="tracks" value="서류(자기소개서)준비" style="width: 16px; height: 16px; accent-color: var(--primary-blue);"> 서류(자기소개서)준비
-              </label>
-              <label style="display: flex; align-items: center; gap: 6px; font-size: 13.5px; cursor: pointer; color: #334155;">
-                <input type="checkbox" name="tracks" value="필기 준비" style="width: 16px; height: 16px; accent-color: var(--primary-blue);"> 필기 준비
-              </label>
-              <label style="display: flex; align-items: center; gap: 6px; font-size: 13.5px; cursor: pointer; color: #334155;">
-                <input type="checkbox" name="tracks" value="면접 준비" style="width: 16px; height: 16px; accent-color: var(--primary-blue);"> 면접 준비
-              </label>
-            </div>
-          </div>
 
-          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
-            <div class="form-group">
-              <label class="form-label">이름 (필수)</label>
-              <input type="text" name="name" class="form-input" placeholder="홍길동" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">나이 (필수)</label>
-              <input type="number" name="age" class="form-input" placeholder="25" required min="1" max="120">
-            </div>
+
+          <div class="form-group">
+            <label class="form-label">이름 (필수)</label>
+            <input type="text" name="name" class="form-input" placeholder="홍길동" required>
           </div>
 
           <div class="form-group">
@@ -2575,10 +2566,7 @@
             <input type="tel" name="phone" class="form-input" placeholder="010-1234-5678" required>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">최종학력/전공 (선택)</label>
-            <input type="text" name="education" class="form-input" placeholder="OO대학교 / 경영학과 졸업">
-          </div>
+
 
           <div class="form-group">
             <label class="form-label">지원 희망 기업명/직무 (선택)</label>
@@ -2588,6 +2576,26 @@
           <div class="form-group">
             <label class="form-label">문의내용 (선택)</label>
             <textarea name="message" class="form-input" placeholder="궁금하신 점이나 상담 희망 내용을 적어주세요." rows="3" style="resize: vertical;"></textarea>
+          </div>
+
+          <div class="form-group" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-bottom: 14px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #1e293b; cursor: pointer;">
+                <input type="checkbox" id="privacyAgree" name="privacy_agree" checked required style="width: 16px; height: 16px; accent-color: var(--primary-blue);">
+                개인정보 제3자 제공 동의 (필수)
+              </label>
+              <button type="button" onclick="togglePrivacyDetails()" style="background: none; border: none; font-size: 12px; color: #64748b; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                <span id="privacyToggleText">내용보기</span> ▼
+              </button>
+            </div>
+            <div id="privacyDetails" style="display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #e2e8f0; font-size: 11.5px; color: #475569; line-height: 1.5;">
+              <div style="margin-bottom: 6px;"><strong>제공받는 자:</strong> 한국자격연구원, 인크루트</div>
+              <div style="margin-bottom: 6px;"><strong>제공 목적:</strong> 구직자의 취업 목표 및 경력사항을 바탕으로 맞춤형 취업 상담·컨설팅 제공</div>
+              <div style="margin-bottom: 6px;"><strong>제공 항목:</strong> 이름, 연락처, 이메일, 최종학력, 희망 산업 및 직무</div>
+              <div style="margin-bottom: 6px;"><strong>보유기간:</strong> 신청일로부터 1년 보관 후 파기</div>
+              <div style="margin-top: 8px; color: #334155;">※ 귀하는 개인정보 제공 동의를 거부할 권리가 있습니다. 다만 동의를 거절하는 경우 상담·코칭 서비스 이용이 제한될 수 있습니다.</div>
+              <div style="margin-top: 4px; color: #334155;">※ 계약 체결 등으로 관계 법령(전자상거래법·세법 등) 상 보존 의무가 발생하는 건은 해당 법정 보존기간을 적용합니다.</div>
+            </div>
           </div>
 
           <button type="submit" class="form-submit-btn">상담 신청 완료하기</button>
@@ -2693,25 +2701,18 @@
       e.preventDefault();
       const form = e.target;
       
-      // Collect checked tracks
-      const tracks = [];
-      form.querySelectorAll('input[name="tracks"]:checked').forEach(cb => {
-        tracks.push(cb.value);
-      });
-      
-      if (tracks.length === 0) {
-        alert('희망전형을 최소 1개 이상 선택해주세요.');
+      const privacyCb = document.getElementById('privacyAgree');
+      if (privacyCb && !privacyCb.checked) {
+        alert('개인정보 제3자 제공 동의는 필수입니다.');
         return;
       }
 
       const nameVal = form.querySelector('input[name="name"]').value;
-      const ageVal = form.querySelector('input[name="age"]').value;
       const phoneVal = form.querySelector('input[name="phone"]').value;
-      const eduVal = form.querySelector('input[name="education"]').value || '미입력';
       const targetVal = form.querySelector('input[name="target_job"]').value || '미입력';
       const userMsgVal = form.querySelector('textarea[name="message"]').value || '없음';
 
-      const combinedMessage = `[과정명] 바로코칭*인크루트 과정\n[희망전형] ${tracks.join(', ')}\n[이름] ${nameVal}\n[나이] ${ageVal}\n[연락처] ${phoneVal}\n[최종학력/전공] ${eduVal}\n[지원희망 기업/직무] ${targetVal}\n[문의내용] ${userMsgVal}`;
+      const combinedMessage = `[과정명] 바로코칭*인크루트 과정\n[이름] ${nameVal}\n[연락처] ${phoneVal}\n[지원희망 기업/직무] ${targetVal}\n[문의내용] ${userMsgVal}`;
 
       const payload = new URLSearchParams();
       payload.append('_form_id', '4b48ff0860870d737ff49af3d635afaf');
@@ -2825,6 +2826,19 @@
         gnb.style.cssText = '';
       }
     });
+
+    // Toggle privacy third-party provision details
+    function togglePrivacyDetails() {
+      const details = document.getElementById('privacyDetails');
+      const toggleText = document.getElementById('privacyToggleText');
+      if (details.style.display === 'none') {
+        details.style.display = 'block';
+        toggleText.textContent = '내용닫기';
+      } else {
+        details.style.display = 'none';
+        toggleText.textContent = '내용보기';
+      }
+    }
   </script>
 </body>
 </html>
