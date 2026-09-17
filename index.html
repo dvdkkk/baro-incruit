@@ -253,15 +253,44 @@
     }
 
     /* ===== Hero Section (Reference Image Split Banner) ===== */
-.hero-section {
-    position: relative;
-    min-height: 580px;
-    background: radial-gradient(circle at 50% 20%, #1725548c 0%, #070b15c7 75%), url('https://postfiles.pstatic.net/MjAyNjA5MTdfMTY3/MDAxNzg5NjIyMTA2OTg3.0Ndkj8dwDP-GU0uQ0X_aFsJMggA38oyy0nyzAgmhvEUg.BnW_0sg48V1XBk2N-0byc2EISUZVnsR0PhP72z6d-zYg.PNG/main_bannerBg.png?type=w966') center / cover no-repeat;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    padding: 80px 0 90px;
-}
+    .hero-section {
+      position: relative;
+      min-height: 580px;
+      background-color: #070b15;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      padding: 80px 0 90px;
+      overflow: hidden;
+    }
+
+    .hero-bg-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 20%, rgba(23, 37, 84, 0.55) 0%, rgba(7, 11, 21, 0.78) 75%);
+    }
+
+    .hero-section > .wrap {
+      position: relative;
+      z-index: 1;
+    }
 
     .hero-content {
       max-width: 760px;
@@ -913,12 +942,22 @@
 
     .good-card-img {
       height: 220px;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
       position: relative;
       background-color: #1e293b;
+      overflow: hidden;
+    }
+
+    .good-card-img-el {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
       transition: transform 0.4s ease;
+    }
+
+    .good-card:hover .good-card-img-el {
+      transform: scale(1.05);
     }
 
     .good-badge-float {
@@ -2003,6 +2042,16 @@
 
   <!-- ===== 2. Hero Section (Main Visual & Copy) ===== -->
   <section class="hero-section" id="hero">
+    <div class="hero-bg-wrapper">
+      <img
+        src="https://postfiles.pstatic.net/MjAyNjA5MTdfMTY3/MDAxNzg5NjIyMTA2OTg3.0Ndkj8dwDP-GU0uQ0X_aFsJMggA38oyy0nyzAgmhvEUg.BnW_0sg48V1XBk2N-0byc2EISUZVnsR0PhP72z6d-zYg.PNG/main_bannerBg.png?type=w966"
+        alt="메인 배경"
+        class="hero-bg-img"
+        referrerpolicy="no-referrer"
+        onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src='/img/main_bannerBg.png';}"
+      >
+      <div class="hero-bg-overlay"></div>
+    </div>
     <div class="wrap" data-aos="fade-up">
       <div class="hero-content">
         <div class="hero-kicker-row">
@@ -2227,7 +2276,8 @@
 
       <div class="goods-grid">
         <div class="good-card">
-          <div class="good-card-img" style="background-image: url('https://postfiles.pstatic.net/MjAyNjA5MTdfNjcg/MDAxNzg5NjIyMTA2NjIy.fsI3VscJ209qu_-W8YOFh1K9iA_Z15Nzk5nur3fAgQcg.EAMpPUdjJDoODM7vsnXXQ51gyuVvpQtCnJko35lfw_Mg.JPEG/good_card_bg1.jpg?type=w966');">
+          <div class="good-card-img">
+            <img src="https://postfiles.pstatic.net/MjAyNjA5MTdfNjcg/MDAxNzg5NjIyMTA2NjIy.fsI3VscJ209qu_-W8YOFh1K9iA_Z15Nzk5nur3fAgQcg.EAMpPUdjJDoODM7vsnXXQ51gyuVvpQtCnJko35lfw_Mg.JPEG/good_card_bg1.jpg?type=w966" alt="인크루트 모의평가" class="good-card-img-el" referrerpolicy="no-referrer" onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src='/img/good_card_bg1.jpg';}">
             <span class="good-badge-float badge-blue">모의평가</span>
           </div>
           <div class="good-card-body">
@@ -2237,7 +2287,8 @@
         </div>
 
         <div class="good-card">
-          <div class="good-card-img" style="background-image: url('https://postfiles.pstatic.net/MjAyNjA5MTdfMTAx/MDAxNzg5NjIyMTA2NjIy.TFml4hJ8jMI05rjhdp3_2s510fpZJovqBGTANKEtFMMg.pVgfoaaCPDrV4l-SCSCA6livhNicihGYTOqQNsZLzgog.JPEG/good_card_bg2.jpg?type=w966');">
+          <div class="good-card-img">
+            <img src="https://postfiles.pstatic.net/MjAyNjA5MTdfMTAx/MDAxNzg5NjIyMTA2NjIy.TFml4hJ8jMI05rjhdp3_2s510fpZJovqBGTANKEtFMMg.pVgfoaaCPDrV4l-SCSCA6livhNicihGYTOqQNsZLzgog.JPEG/good_card_bg2.jpg?type=w966" alt="모의평가 결과 확인" class="good-card-img-el" referrerpolicy="no-referrer" onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src='/img/good_card_bg2.jpg';}">
             <span class="good-badge-float badge-pink">결과 리포트</span>
           </div>
           <div class="good-card-body">
@@ -2247,7 +2298,8 @@
         </div>
 
         <div class="good-card">
-          <div class="good-card-img" style="background-image: url('https://postfiles.pstatic.net/MjAyNjA5MTdfMSAg/MDAxNzg5NjIyMTA2NjUy._gavaJLkTzB-9_1qbKx9sAlQyixXENzUJMQYlEi9Pssg.fcnscYxi-jlmO-KQOz5EO-2i-HzI389tyHWdd6M3dzUg.PNG/good_card_bg3.png?type=w966');">
+          <div class="good-card-img">
+            <img src="https://postfiles.pstatic.net/MjAyNjA5MTdfMSAg/MDAxNzg5NjIyMTA2NjUy._gavaJLkTzB-9_1qbKx9sAlQyixXENzUJMQYlEi9Pssg.fcnscYxi-jlmO-KQOz5EO-2i-HzI389tyHWdd6M3dzUg.PNG/good_card_bg3.png?type=w966" alt="60분 1:1 코칭" class="good-card-img-el" referrerpolicy="no-referrer" onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src='/img/good_card_bg3.jpg';}">
             <span class="good-badge-float badge-yellow">60분 코칭 </span>
           </div>
           <div class="good-card-body">
