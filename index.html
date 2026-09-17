@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>인크루트 : 패스트트랙 - 모의평가와 60분 1:1 상담을 한 번에</title>
-  <meta name="title" content="인크루트 : 패스트트랙 - 모의평가와 60분 1:1 상담을 한 번에">
-  <meta name="keywords" content="인크루트, 합격상점, 취업코칭, 패스트트랙, 모의평가, 1:1 상담">
-  <meta name="description" content="인크루트 모의평가와 전문가 60분 1:1 상담을 한 번에, 패스트트랙">
-  <meta property="og:title" content="인크루트 : 패스트트랙 - 모의평가와 60분 1:1 상담을 한 번에">
+  <meta name="title" content="인크루트 : 패스트트랙 - 모의평가와 60분 1:1 코칭을 한 번에">
+  <meta name="keywords" content="인크루트, 합격상점, 취업코칭, 패스트트랙, 모의평가, 1:1 코칭">
+  <meta name="description" content="인크루트 모의평가와 전문가 60분 1:1 코칭을 한 번에, 패스트트랙">
+  <meta property="og:title" content="인크루트 : 패스트트랙 - 모의평가와 60분 1:1 코칭을 한 번에">
   <meta property="og:url" content="https://people.incruit.com/store/coaching/fasttrack.asp">
   <meta property="og:image" content="https://img.incruit.com/ui/static/image/common/n_common/incruit_og_800.png">
-  <meta property="og:description" content="인크루트 모의평가와 전문가 60분 1:1 상담을 한 번에, 패스트트랙">
+  <meta property="og:description" content="인크루트 모의평가와 전문가 60분 1:1 코칭을 한 번에, 패스트트랙">
   <meta property="og:type" content="website">
   <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 
@@ -189,6 +189,30 @@
       background: #cbd5e1;
     }
 
+    @keyframes pulseAttention {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 0 8px rgba(0, 102, 255, 0);
+      }
+    }
+
+    @keyframes pingRing7s {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      20% {
+        transform: scale(1.25);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
     .header-cta-btn {
       background: var(--primary-blue);
       color: #ffffff;
@@ -197,6 +221,22 @@
       padding: 8px 16px;
       border-radius: 6px;
       transition: all 0.2s;
+      position: relative;
+      animation: pulseAttention 3s infinite ease-in-out;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .header-cta-btn::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: inherit;
+      border: 2px solid var(--primary-blue);
+      opacity: 0;
+      pointer-events: none;
+      animation: pingRing7s 7s infinite cubic-bezier(0, 0, 0.2, 1);
     }
 
     .header-cta-btn:hover {
@@ -1540,6 +1580,22 @@
       padding: 10px 24px;
       border-radius: 6px;
       transition: all 0.2s;
+      position: relative;
+      animation: pulseAttention 3s infinite ease-in-out;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .sticky-buy-btn::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: inherit;
+      border: 2px solid var(--primary-blue);
+      opacity: 0;
+      pointer-events: none;
+      animation: pingRing7s 7s infinite cubic-bezier(0, 0, 0.2, 1);
     }
 
     .sticky-buy-btn:hover {
@@ -2005,7 +2061,7 @@
   <section class="alert-banner-section">
     <div class="wrap" data-aos="fade-up">
       <div class="alert-banner-card">
-        <span class="section-label">모의평가 + 60분 1:1 상담</span>
+        <span class="section-label">모의평가 + 60분 1:1 코칭</span>
         <h2 class="section-heading">
           진단은 <em>데이터</em>로, 방향은 <em>전문가</em>와 함께.
         </h2>
@@ -2059,7 +2115,7 @@
         <div class="points-left">
           <span class="section-label">패스트트랙의 핵심 POINT</span>
           <h2 class="section-heading">
-            모의평가부터 상담까지,<br>
+            모의평가부터 전문 코칭까지,<br>
             <em>3가지 포인트</em>
           </h2>
           <p class="section-desc">
@@ -2103,7 +2159,7 @@
                 <h3 class="point-item-title">60분 동안 취약점에 집중합니다.</h3>
               </div>
               <p class="point-item-desc">
-                모의평가 결과를 바탕으로 전문가와 100% 비대면(Zoom) 1:1 상담을 진행합니다.
+                모의평가 결과를 바탕으로 전문가와 100% 비대면(Zoom) 1:1 코칭을 진행합니다.
               </p>
             </div>
           </div>
@@ -2191,11 +2247,11 @@
 
         <div class="good-card">
           <div class="good-card-img" style="background-image: url('/img/good_card_bg3.jpg');">
-            <span class="good-badge-float badge-yellow">60분 상담</span>
+            <span class="good-badge-float badge-yellow">60분 코칭 </span>
           </div>
           <div class="good-card-body">
-            <strong>60분 1:1 상담</strong>
-            <p>전문가와 함께 취약점을 확인하고 개선 방향을 상담합니다.</p>
+            <strong>60분 1:1 코칭</strong>
+            <p>전문가와 함께 취약점을 확인하고 개선 전략을 컨설팅합니다.</p>
           </div>
         </div>
       </div>
@@ -2260,7 +2316,7 @@
           </div>
           <div class="rec-list-item" style="grid-column: 1 / -1;">
             <span class="rec-check-icon">✓</span>
-            <span>장시간 컨설팅보다 60분 집중 상담을 원하는 분</span>
+            <span>장시간 컨설팅보다 60분 집중 컨설팅을 원하는 분</span>
           </div>
         </div>
       </div>
@@ -2293,7 +2349,7 @@
             </tr>
             <tr>
               <td><strong>구성</strong></td>
-              <td class="col-highlight">모의평가 + 60분 상담</td>
+              <td class="col-highlight">모의평가 + 60분 컨설팅</td>
               <td>1~12시간 맞춤 컨설팅</td>
             </tr>
             <tr>
@@ -2341,9 +2397,9 @@
 
         <div class="choice-card card-featured">
           <div>
-            <span class="choice-tag tag-primary">짧은 집중 상담이 필요하다면</span>
+            <span class="choice-tag tag-primary">짧은 집중 컨설팅이 필요하다면</span>
             <h3 class="choice-title">패스트트랙</h3>
-            <p class="choice-desc">모의평가와 60분 상담으로 취약점을 빠르게 보완하세요.</p>
+            <p class="choice-desc">모의평가와 60분 코칭으로 취약점을 빠르게 보완하세요.</p>
           </div>
           <!--
 		  <a href="https://people.incruit.com/store/coaching/fasttrack.asp" target="_blank" rel="noopener" class="choice-btn choice-btn-primary">
@@ -2373,15 +2429,15 @@
     <div class="wrap" data-aos="fade-up">
       <div style="text-align: center; margin-bottom: 40px;">
         <span class="section-label">가격 / 구매</span>
-        <h2 class="section-heading"><em>인크루트 모의평가</em> + 60분 상담을 한 번에</h2>
-        <p class="section-desc" style="margin: 0 auto;">이동 없이, 편한 장소에서 바로 상담을 받아보세요.</p>
+        <h2 class="section-heading"><em>인크루트 모의평가</em> + 60분 코칭을 한 번에</h2>
+        <p class="section-desc" style="margin: 0 auto;">이동 없이, 편한 장소에서 바로 컨설팅을 받아보세요.</p>
       </div>
 
       <div class="pricing-card-wrap">
         <div class="pricing-card-top">
           <div>
             <span class="pricing-meta-tag">패스트트랙</span>
-            <h3 class="pricing-title-text">인크루트 모의평가 + 60분 상담</h3>
+            <h3 class="pricing-title-text">인크루트 모의평가 + 60분 코칭</h3>
           </div>
           <div class="pricing-price-col">
             <span class="pricing-vat">※ VAT 포함</span>
@@ -2398,7 +2454,7 @@
             </div>
             <div class="pricing-includes-item">
               <span class="item-check">✓</span>
-              <span>60분 1:1 상담 (100% 비대면)</span>
+              <span>60분 1:1 코칭 (100% 비대면)</span>
             </div>
             <div class="pricing-includes-item">
               <span class="item-check">✓</span>
@@ -2507,7 +2563,7 @@
           <div class="sticky-chips-row">
             <span class="sticky-chip">인크루트 모의평가</span>
             <span class="sticky-chip">60분 1:1 상담</span>
-            <span class="sticky-chip">상담 결과 요약 리포트</span>
+            <span class="sticky-chip">컨설팅 결과 요약 리포트</span>
           </div>
         </div>
         <div class="sticky-right">
