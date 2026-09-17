@@ -2520,30 +2520,62 @@
       </div>
       <div class="modal-body">
         <form id="consultForm" onsubmit="handleConsultSubmit(event)">
+          <input type="hidden" name="_form_id" value="4b48ff0860870d737ff49af3d635afaf" />
+          
           <div class="form-group">
-            <label class="form-label">신청자 성함 *</label>
-            <input type="text" class="form-input" placeholder="홍길동" required>
+            <label class="form-label">과정명</label>
+            <input type="text" name="course" class="form-input" value="바로코칭*인크루트 과정" readonly style="background: #f1f5f9; color: #1e293b; font-weight: 700;" />
           </div>
+
           <div class="form-group">
-            <label class="form-label">휴대폰 번호 *</label>
-            <input type="tel" class="form-input" placeholder="010-1234-5678" required>
+            <label class="form-label">희망전형 (필수 - 다중 선택)</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; padding: 12px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px;">
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 13.5px; cursor: pointer; color: #334155;">
+                <input type="checkbox" name="tracks" value="진로컨설팅" style="width: 16px; height: 16px; accent-color: var(--primary-blue);"> 진로컨설팅
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 13.5px; cursor: pointer; color: #334155;">
+                <input type="checkbox" name="tracks" value="서류(자기소개서)준비" style="width: 16px; height: 16px; accent-color: var(--primary-blue);"> 서류(자기소개서)준비
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 13.5px; cursor: pointer; color: #334155;">
+                <input type="checkbox" name="tracks" value="필기 준비" style="width: 16px; height: 16px; accent-color: var(--primary-blue);"> 필기 준비
+              </label>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 13.5px; cursor: pointer; color: #334155;">
+                <input type="checkbox" name="tracks" value="면접 준비" style="width: 16px; height: 16px; accent-color: var(--primary-blue);"> 면접 준비
+              </label>
+            </div>
           </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label class="form-label">이름 (필수)</label>
+              <input type="text" name="name" class="form-input" placeholder="홍길동" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">나이 (필수)</label>
+              <input type="number" name="age" class="form-input" placeholder="25" required min="1" max="120">
+            </div>
+          </div>
+
           <div class="form-group">
-            <label class="form-label">이메일 *</label>
-            <input type="email" class="form-input" placeholder="example@incruit.com" required>
+            <label class="form-label">휴대폰번호 (필수)</label>
+            <input type="tel" name="phone" class="form-input" placeholder="010-1234-5678" required>
           </div>
+
           <div class="form-group">
-            <label class="form-label">관심 직무 분야 *</label>
-            <select class="form-select" id="modalJobSelect">
-              <option value="marketing">마케팅</option>
-              <option value="semiconductor">반도체 공정 엔지니어</option>
-              <option value="backend">백엔드 개발자</option>
-              <option value="sales">영업관리</option>
-              <option value="automobile">자동차 기계설비</option>
-              <option value="finance">재무회계</option>
-              <option value="other">기타 / 아직 미정</option>
-            </select>
+            <label class="form-label">최종학력/전공 (선택)</label>
+            <input type="text" name="education" class="form-input" placeholder="OO대학교 / 경영학과 졸업">
           </div>
+
+          <div class="form-group">
+            <label class="form-label">지원 희망 기업명/직무 (선택)</label>
+            <input type="text" name="target_job" class="form-input" placeholder="삼성전자 / 영업마케팅">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">문의내용 (선택)</label>
+            <textarea name="message" class="form-input" placeholder="궁금하신 점이나 상담 희망 내용을 적어주세요." rows="3" style="resize: vertical;"></textarea>
+          </div>
+
           <button type="submit" class="form-submit-btn">상담 신청 완료하기</button>
         </form>
 
@@ -2645,8 +2677,48 @@
 
     function handleConsultSubmit(e) {
       e.preventDefault();
+      const form = e.target;
+      
+      // Collect checked tracks
+      const tracks = [];
+      form.querySelectorAll('input[name="tracks"]:checked').forEach(cb => {
+        tracks.push(cb.value);
+      });
+      
+      if (tracks.length === 0) {
+        alert('희망전형을 최소 1개 이상 선택해주세요.');
+        return;
+      }
+
+      const nameVal = form.querySelector('input[name="name"]').value;
+      const ageVal = form.querySelector('input[name="age"]').value;
+      const phoneVal = form.querySelector('input[name="phone"]').value;
+      const eduVal = form.querySelector('input[name="education"]').value || '미입력';
+      const targetVal = form.querySelector('input[name="target_job"]').value || '미입력';
+      const userMsgVal = form.querySelector('textarea[name="message"]').value || '없음';
+
+      const combinedMessage = `[과정명] 바로코칭*인크루트 과정\n[희망전형] ${tracks.join(', ')}\n[이름] ${nameVal}\n[나이] ${ageVal}\n[연락처] ${phoneVal}\n[최종학력/전공] ${eduVal}\n[지원희망 기업/직무] ${targetVal}\n[문의내용] ${userMsgVal}`;
+
+      const payload = new URLSearchParams();
+      payload.append('_form_id', '4b48ff0860870d737ff49af3d635afaf');
+      payload.append('name', nameVal);
+      payload.append('message', combinedMessage);
+
+      // Optimistic UI: instantly show success message in 0.1s
       document.getElementById('consultForm').style.display = 'none';
       document.getElementById('consultSuccess').style.display = 'block';
+
+      // Background submission with keepalive: true
+      fetch('https://inputhaven.com/api/v1/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: payload.toString(),
+        keepalive: true
+      }).catch(err => {
+        console.log('Background submission error (handled gracefully):', err);
+      });
     }
 
     // Job Selection Sync
@@ -2692,12 +2764,6 @@
         closeInMoModal();
       }
     });
-
-    function handleConsultSubmit(e) {
-      e.preventDefault();
-      document.getElementById('consultForm').style.display = 'none';
-      document.getElementById('consultSuccess').style.display = 'block';
-    }
 
     // Purchase Start function matching in3.html
     function FastTrackBuyStart() {

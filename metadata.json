@@ -1,0 +1,6 @@
+{
+  "name": "인크루트 패스트트랙",
+  "description": "인크루트 모의평가와 전문가 60분 1:1 상담을 한 번에 제공하는 패스트트랙 서비스",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
