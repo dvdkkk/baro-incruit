@@ -2793,6 +2793,16 @@
         gnb.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
       }
     }
+
+    // Close mobile menu when clicking any gnb-link
+    document.querySelectorAll('.gnb-link').forEach(link => {
+      link.addEventListener('click', function() {
+        const gnb = document.querySelector('.gnb-menu');
+        if (gnb) {
+          gnb.style.display = 'none';
+        }
+      });
+    });
   </script>
 </body>
 </html>
