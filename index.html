@@ -1231,8 +1231,9 @@
       position: relative;
     }
 
-    .choice-card:hover {
-      transform: translateY(-6px);
+    .choice-card:hover,
+    .choice-card:active {
+      transform: none;
       box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
     }
 
@@ -2067,7 +2068,7 @@
   <header class="site-header" id="siteHeader">
     <div class="wrap">
       <div class="header-inner">
-        <a href="#" class="brand-logo" title="인크루트 바로코칭 패스트트랙">
+        <a href="javascript:void(0);" onclick="event.preventDefault();" class="brand-logo" title="인크루트 바로코칭 패스트트랙">
           <span class="collab-badge">
             <span class="incruit"><img src="https://postfiles.pstatic.net/MjAyNjA5MTdfMTcz/MDAxNzg5NjIyMTA2OTAx.xe0yxBpr7CWIVuMPcMjaQhF1psGhNUhLcvgpM3N8cMsg.LSsC6ZgMqNtelLzbdBDgOFSXQHlfPPVTY7gyKQHLJYog.PNG/inc_logo.png?type=w966" alt="인크루트_로고" referrerpolicy="no-referrer"></span>
             <span class="cross">×</span>
@@ -2148,9 +2149,9 @@
           <button type="button" class="btn-hero-primary" onclick="openConsultModal()">
             상담 신청하기
           </button>
-          <a href="" class="btn-hero-secondary">
+          <button type="button" class="btn-hero-secondary" onclick="FastTrackBuyStart()">
             결제하기
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -2487,7 +2488,7 @@
       </div>
 
       <div class="choice-grid">
-        <div class="choice-card">
+        <div class="choice-card" onclick="event.preventDefault();" style="cursor: default;">
           <div>
             <span class="choice-tag">모의평가를 아직 안 했다면</span>
             <h3 class="choice-title">인크루트 모의평가</h3>
@@ -2500,7 +2501,7 @@
 		  -->
         </div>
 
-        <div class="choice-card card-featured">
+        <div class="choice-card card-featured" onclick="event.preventDefault();" style="cursor: default;">
           <div>
             <span class="choice-tag tag-primary">짧은 집중 컨설팅이 필요하다면</span>
             <h3 class="choice-title">패스트트랙</h3>
@@ -2513,7 +2514,7 @@
 		  -->
         </div>
 
-        <div class="choice-card">
+        <div class="choice-card" onclick="event.preventDefault();" style="cursor: default;">
           <div>
             <span class="choice-tag tag-blue">충분한 컨설팅이 필요하다면</span>
             <h3 class="choice-title">1:1 맞춤상담</h3>
@@ -2847,10 +2848,18 @@
     }
 
     // Modal Control
+    let isConsultSubmitting = false;
+
     function openConsultModal() {
+      isConsultSubmitting = false;
       const modal = document.getElementById('consultModal');
       modal.classList.add('active');
-      document.getElementById('consultForm').style.display = 'block';
+      const form = document.getElementById('consultForm');
+      if (form) {
+        form.style.display = 'block';
+        const submitBtn = form.querySelector('button[type="submit"]');
+        if (submitBtn) submitBtn.disabled = false;
+      }
       document.getElementById('consultSuccess').style.display = 'none';
     }
 
@@ -2860,6 +2869,11 @@
     }
 
     function handleConsultSubmit(e) {
+      if (isConsultSubmitting) {
+        if (e && e.preventDefault) e.preventDefault();
+        return false;
+      }
+
       const form = document.getElementById('consultForm');
       
       const privacyCb = document.getElementById('privacyAgree');
@@ -2869,7 +2883,12 @@
         return false;
       }
 
-      const formId = form.querySelector('input[name="_form_id"]')?.value || '914168973e93bda60f4eac1e7cbe1449';
+      isConsultSubmitting = true;
+      const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+      }
+
       const nameVal = form.querySelector('input[name="name"]')?.value || '';
       const phoneVal = form.querySelector('input[name="phone"]')?.value || '';
       const targetVal = form.querySelector('input[name="target_job"]')?.value || '미입력';
@@ -2884,38 +2903,14 @@
         messageTextarea.value = combinedMessage;
       }
 
-      // Also trigger fetch as a parallel guarantee
-      try {
-        const payload = new URLSearchParams();
-        payload.append('_form_id', formId);
-        payload.append('name', nameVal);
-        payload.append('message', combinedMessage);
-        payload.append('phone', phoneVal);
-        payload.append('course', courseVal);
-        payload.append('target_job', targetVal);
-
-        fetch('https://inputhaven.com/api/v1/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: payload.toString(),
-          mode: 'no-cors',
-          keepalive: true
-        }).catch(err => {
-          console.log('Background submission error (handled gracefully):', err);
-        });
-      } catch (err) {
-        console.log('Fetch error:', err);
-      }
-
       // Optimistic UI: display success message instantly
       setTimeout(function() {
         document.getElementById('consultForm').style.display = 'none';
         document.getElementById('consultSuccess').style.display = 'block';
+        isConsultSubmitting = false;
       }, 50);
 
-      // Return true to allow native form POST to hidden_submit_iframe
+      // Return true to allow native form POST to hidden_submit_iframe to execute exactly ONCE
       return true;
     }
 
