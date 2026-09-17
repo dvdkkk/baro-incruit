@@ -1883,6 +1883,20 @@
 	  
 	  .pricing-includes-list{flex-wrap: wrap;}
     }
+    @media (min-width: 769px) {
+      .gnb-menu {
+        display: flex !important;
+        position: static !important;
+        flex-direction: row !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        width: auto !important;
+      }
+      .mobile-menu-btn {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 
@@ -2798,10 +2812,18 @@
     document.querySelectorAll('.gnb-link').forEach(link => {
       link.addEventListener('click', function() {
         const gnb = document.querySelector('.gnb-menu');
-        if (gnb) {
+        if (gnb && window.innerWidth <= 768) {
           gnb.style.display = 'none';
         }
       });
+    });
+
+    // Reset inline styles on window resize to PC
+    window.addEventListener('resize', function() {
+      const gnb = document.querySelector('.gnb-menu');
+      if (window.innerWidth > 768 && gnb) {
+        gnb.style.cssText = '';
+      }
     });
   </script>
 </body>
