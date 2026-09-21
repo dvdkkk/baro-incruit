@@ -2064,23 +2064,6 @@
 
 <body class="fasttrack-page">
 
-    <!-- IP{ -->
-    <h2>현재 서버의 API 아웃바운드 IP</h2>
-    <p id="ip-display">조회 중...</p>
-
-    <script>
-        // 서버 내부의 PHP 파일을 호출하여 서버 IP 수신
-        fetch('get_ip.php')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('ip-display').innerText = data;
-            })
-            .catch(error => {
-                document.getElementById('ip-display').innerText = 'IP 조회 실패: ' + error;
-            });
-    </script>
-	<!-- }IP -->
-	
 
   <!-- ===== 1. GNB / Top Header ===== -->
   <header class="site-header" id="siteHeader">
