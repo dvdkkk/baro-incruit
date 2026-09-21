@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>인크루트 : 패스트트랙 - 모의평가와 60분 1:1 컨설팅을 한 번에</title>
-  <meta name="title" content="인크루트 : 패스트트랙 - 모의평가와 60분 1:1 코칭을 한 번에">
-  <meta name="keywords" content="인크루트, 합격상점, 취업코칭, 패스트트랙, 모의평가, 1:1 코칭">
-  <meta name="description" content="인크루트 모의평가와 전문가 60분 1:1 코칭을 한 번에, 패스트트랙">
-  <meta property="og:title" content="인크루트 : 패스트트랙 - 모의평가와 60분 1:1 코칭을 한 번에">
+  <title>바로코칭*인크루트 : 패스트트랙 - 모의평가와 60분 1:1 컨설팅을 한 번에</title>
+  <meta name="title" content="바로코칭*인크루트 : 패스트트랙 - 모의평가와 60분 1:1 코칭을 한 번에">
+  <meta name="keywords" content="바로코칭*인크루트, 합격상점, 취업코칭, 패스트트랙, 모의평가, 1:1 코칭">
+  <meta name="description" content="바로코칭*인크루트 모의평가와 전문가 60분 1:1 코칭을 한 번에, 패스트트랙">
+  <meta property="og:title" content="바로코칭*인크루트 : 패스트트랙 - 모의평가와 60분 1:1 코칭을 한 번에">
   <meta property="og:url" content="https://people.incruit.com/store/coaching/fasttrack.asp">
   <meta property="og:image" content="https://img.incruit.com/ui/static/image/common/n_common/incruit_og_800.png">
-  <meta property="og:description" content="인크루트 모의평가와 전문가 60분 1:1 코칭을 한 번에, 패스트트랙">
+  <meta property="og:description" content="바로코칭*인크루트 모의평가와 전문가 60분 1:1 코칭을 한 번에, 패스트트랙">
   <meta property="og:type" content="website">
   <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 
@@ -2064,6 +2064,24 @@
 
 <body class="fasttrack-page">
 
+    <!-- IP{ -->
+    <h2>현재 서버의 API 아웃바운드 IP</h2>
+    <p id="ip-display">조회 중...</p>
+
+    <script>
+        // 서버 내부의 PHP 파일을 호출하여 서버 IP 수신
+        fetch('get_ip.php')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('ip-display').innerText = data;
+            })
+            .catch(error => {
+                document.getElementById('ip-display').innerText = 'IP 조회 실패: ' + error;
+            });
+    </script>
+	<!-- }IP -->
+	
+
   <!-- ===== 1. GNB / Top Header ===== -->
   <header class="site-header" id="siteHeader">
     <div class="wrap">
@@ -2964,7 +2982,7 @@
       const selectedJob = select ? select.options[select.selectedIndex].text : '패스트트랙';
       const confirmBuy = confirm(`[${selectedJob}]\n이용금액: 220,000원 (VAT 포함)\n\n인크루트 안전결제 페이지로 이동하시겠습니까?`);
       if (confirmBuy) {
-        window.open('https://people.incruit.com/store/coaching/fasttrack.asp', '_blank');
+        window.open('https://people.incruit.com/store/coaching/fasttrack.asp?pco=1442&utm_source=barocoaching&utm_medium=referral', '_blank');
       }
       return false;
     }
